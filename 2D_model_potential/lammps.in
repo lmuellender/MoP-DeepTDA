@@ -1,0 +1,47 @@
+# Input file for LAMMPS simulation in configuration space for 2D model potential.
+# The potential is implemented as external bias in PLUMED
+
+units 		lj
+dimension	2
+atom_style	atomic
+atom_modify	map yes
+boundary	f f p
+
+
+# initial configuration
+variable	x0 equal -0.5
+variable	y0 equal 1.5
+
+region 		simbox block -5 5 -5 5 -0.1 0.1
+create_box 	1 simbox
+create_atoms	1 single ${x0} ${y0} 0.0
+
+mass		* 1.0
+velocity	all set 0.0 0.0 0.0
+
+
+# SETUP
+variable        dt	     equal 0.01
+variable 	T	     equal 0.1
+variable	damp	     equal 0.1 # corresponds to 10 in MDoP
+variable        thermo_freq  equal 1000
+variable        N_steps      equal 10000000
+variable	seed	     index 1234
+print "Seed: ${seed}"
+
+timestep        ${dt}
+
+# THERMO OUT
+thermo_style 	custom step temp etotal ke pe #v_F_x v_F_y
+thermo 		${thermo_freq}
+
+# PLUMED RUN
+#fix 2	all addforce v_F_x v_F_y 0.0 
+#fix_modify 2 energy yes 
+fix 1 	all langevin $T $T ${damp} ${seed}
+fix 3 	all plumed plumedfile plumed.dat
+fix 4 	all nve
+fix 5 	all enforce2d
+
+run 	${N_steps}
+

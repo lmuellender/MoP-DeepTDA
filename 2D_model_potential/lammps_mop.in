@@ -1,0 +1,59 @@
+# LAMMPS input script for MetaD of Paths on the 2D model potential
+# 2D potential is implemented directly in the path_dynamics_mb fix
+
+# --- SETUP ---
+units		lj
+dimension	2
+atom_style	atomic
+atom_modify 	map yes
+boundary	f f p
+
+#Number of beads (96, 192, 288, 384)
+variable Nbeads equal 288
+variable ibead uloop ${Nbeads}
+
+# initial configuration
+#region 	simbox block -5 5 -5 5 -0.1 0.1
+#create_box 	1 simbox
+#create_atoms	1 single -0.5 1.5 0.0
+#
+#mass		* 1.0
+#velocity	all set 0.0 0.0 0.0
+
+read_data	./start_confs_mbA_N384/start_conf_A_${ibead}.data
+
+#POLYMER variables
+variable        epsilon      equal 0.00001  #Epsilon, needed for finite difference in path dyn
+variable        path_dt      equal 0.01      #Time step at the Brownian level (entering the definition of the fictitious spring constant)
+variable        path_damp    equal 10.0     #Damping at the Brownian level         "   "
+
+#MD variables
+variable        dt           equal 0.01      #Time step for the MD run
+variable        T            equal 0.1       #Temperature
+variable        lange_tau    equal 100.0     #Time constant of the thermostat
+variable        dump_freq    equal 1 	     #How
+variable        thermo_freq  equal 500       #    many
+variable        restart_freq equal 100000    #         samples of various things
+variable        Nsteps       equal 2000000   #Total number of MD steps
+
+# --- RUN ---
+timestep 	${dt}
+thermo_style 	custom step temp etotal ke pe 
+thermo 		${thermo_freq}
+
+fix		1 all path_dynamics_mb ${path_dt} ${path_damp} ${epsilon} langevin ${T} ${lange_tau} 9827${ibead}
+fix		3 all plumed plumedfile plumed_mop.dat outfile log.plumed
+fix		2 all enforce2d
+
+#dump		1 all custom ${dump_freq} dump id x y vx vy v_Fx v_Fy  
+
+# --- compute polymer energy ---
+variable a equal step
+variable b equal f_1[1] #spring energy
+variable c equal f_1[2] #kinetic energy
+fix printEspring all print ${thermo_freq} "$a $b $c" file polymer.${ibead}.nrg screen no
+
+run 		${Nsteps}
+
+# write last conf
+#write_data	start_conf_A_${ibead}.data

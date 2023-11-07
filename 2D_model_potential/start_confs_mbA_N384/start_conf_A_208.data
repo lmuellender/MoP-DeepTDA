@@ -1,0 +1,20 @@
+LAMMPS data file via write_data, version 23 Jun 2022, timestep = 1000000
+
+1 atoms
+1 atom types
+
+-5 5 xlo xhi
+-5 5 ylo yhi
+-0.1 0.1 zlo zhi
+
+Masses
+
+1 1
+
+Atoms # atomic
+
+1 1 -0.5163436405783601 1.4880924268064768 0 0 0 0
+
+Velocities
+
+1 0.49013660565903805 0.4713063216827734 0

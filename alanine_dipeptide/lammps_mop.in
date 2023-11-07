@@ -1,0 +1,220 @@
+# LAMMPS input file for MoP simulations in trajectory space for Alanine Dipeptide
+
+timer timeout 23:00:00 every 10000
+units real
+atom_style full
+dimension 3
+boundary p p p
+
+atom_modify sort 0 0.0 map yes
+neighbor        2 bin
+neigh_modify    every 1 delay 0 check yes
+
+#Number of beads
+variable Nbeads equal 256
+variable ibead uloop ${Nbeads}
+
+#Initialize starting configuration of all beads
+read_data ./start_confs_A_equil_N384/last_conf.${ibead}.data
+
+#BONDS
+bond_style hybrid harmonic
+bond_coeff 1 harmonic    3.40000000e+02    1.09000000e+00
+bond_coeff 2 harmonic    3.40000000e+02    1.09000000e+00
+bond_coeff 3 harmonic    3.40000000e+02    1.09000000e+00
+bond_coeff 4 harmonic    3.17000000e+02    1.52200000e+00
+bond_coeff 5 harmonic    5.70000000e+02    1.22900000e+00
+bond_coeff 6 harmonic    4.90000000e+02    1.33500000e+00
+bond_coeff 7 harmonic    4.34000000e+02    1.01000000e+00
+bond_coeff 8 harmonic    3.37000000e+02    1.44900000e+00
+bond_coeff 9 harmonic    3.40000000e+02    1.09000000e+00
+bond_coeff 10 harmonic    3.10000000e+02    1.52600000e+00
+bond_coeff 11 harmonic    3.17000000e+02    1.52200000e+00
+bond_coeff 12 harmonic    3.40000000e+02    1.09000000e+00
+bond_coeff 13 harmonic    3.40000000e+02    1.09000000e+00
+bond_coeff 14 harmonic    3.40000000e+02    1.09000000e+00
+bond_coeff 15 harmonic    5.70000000e+02    1.22900000e+00
+bond_coeff 16 harmonic    4.90000000e+02    1.33500000e+00
+bond_coeff 17 harmonic    4.34000000e+02    1.01000000e+00
+bond_coeff 18 harmonic    3.37000000e+02    1.44900000e+00
+bond_coeff 19 harmonic    3.40000000e+02    1.09000000e+00
+bond_coeff 20 harmonic    3.40000000e+02    1.09000000e+00
+bond_coeff 21 harmonic    3.40000000e+02    1.09000000e+00
+#ANGLES
+angle_style hybrid harmonic
+angle_coeff 1 harmonic    3.50000000e+01    1.09500000e+02
+angle_coeff 2 harmonic    3.50000000e+01    1.09500000e+02
+angle_coeff 3 harmonic    5.00000000e+01    1.09500000e+02
+angle_coeff 4 harmonic    8.00000000e+01    1.20400000e+02
+angle_coeff 5 harmonic    7.00000000e+01    1.16600000e+02
+angle_coeff 6 harmonic    3.50000000e+01    1.09500000e+02
+angle_coeff 7 harmonic    5.00000000e+01    1.09500000e+02
+angle_coeff 8 harmonic    5.00000000e+01    1.09500000e+02
+angle_coeff 9 harmonic    5.00000000e+01    1.20000000e+02
+angle_coeff 10 harmonic    5.00000000e+01    1.21900000e+02
+angle_coeff 11 harmonic    8.00000000e+01    1.22900000e+02
+angle_coeff 12 harmonic    5.00000000e+01    1.09500000e+02
+angle_coeff 13 harmonic    8.00000000e+01    1.09700000e+02
+angle_coeff 14 harmonic    6.30000000e+01    1.10100000e+02
+angle_coeff 15 harmonic    5.00000000e+01    1.18040000e+02
+angle_coeff 16 harmonic    5.00000000e+01    1.09500000e+02
+angle_coeff 17 harmonic    5.00000000e+01    1.09500000e+02
+angle_coeff 18 harmonic    5.00000000e+01    1.09500000e+02
+angle_coeff 19 harmonic    8.00000000e+01    1.20400000e+02
+angle_coeff 20 harmonic    7.00000000e+01    1.16600000e+02
+angle_coeff 21 harmonic    5.00000000e+01    1.09500000e+02
+angle_coeff 22 harmonic    5.00000000e+01    1.09500000e+02
+angle_coeff 23 harmonic    6.30000000e+01    1.11100000e+02
+angle_coeff 24 harmonic    3.50000000e+01    1.09500000e+02
+angle_coeff 25 harmonic    3.50000000e+01    1.09500000e+02
+angle_coeff 26 harmonic    3.50000000e+01    1.09500000e+02
+angle_coeff 27 harmonic    5.00000000e+01    1.20000000e+02
+angle_coeff 28 harmonic    5.00000000e+01    1.21900000e+02
+angle_coeff 29 harmonic    8.00000000e+01    1.22900000e+02
+angle_coeff 30 harmonic    5.00000000e+01    1.09500000e+02
+angle_coeff 31 harmonic    5.00000000e+01    1.09500000e+02
+angle_coeff 32 harmonic    5.00000000e+01    1.09500000e+02
+angle_coeff 33 harmonic    5.00000000e+01    1.18040000e+02
+angle_coeff 34 harmonic    3.50000000e+01    1.09500000e+02
+angle_coeff 35 harmonic    3.50000000e+01    1.09500000e+02
+angle_coeff 36 harmonic    3.50000000e+01    1.09500000e+02
+#DIHEDRALS
+dihedral_style hybrid multi/harmonic
+dihedral_coeff 1 multi/harmonic    8.00000000e-01    8.00000000e-01    0.00000000e+00    0.00000000e+00    0.00000000e+00
+dihedral_coeff 2 multi/harmonic    8.00000000e-02    2.40000000e-01    0.00000000e+00   -3.20000000e-01    0.00000000e+00
+dihedral_coeff 3 multi/harmonic    0.00000000e+00    0.00000000e+00    0.00000000e+00    0.00000000e+00    0.00000000e+00
+dihedral_coeff 4 multi/harmonic    5.00000000e+00    0.00000000e+00   -5.00000000e+00    0.00000000e+00    0.00000000e+00
+dihedral_coeff 5 multi/harmonic    5.00000000e+00    0.00000000e+00   -5.00000000e+00    0.00000000e+00    0.00000000e+00
+dihedral_coeff 6 multi/harmonic    2.10000000e+01    0.00000000e+00   -2.10000000e+01    0.00000000e+00    0.00000000e+00
+dihedral_coeff 7 multi/harmonic    8.00000000e-01    8.00000000e-01    0.00000000e+00    0.00000000e+00    0.00000000e+00
+dihedral_coeff 8 multi/harmonic    8.00000000e-02    2.40000000e-01    0.00000000e+00   -3.20000000e-01    0.00000000e+00
+dihedral_coeff 9 multi/harmonic    0.00000000e+00    0.00000000e+00    0.00000000e+00    0.00000000e+00    0.00000000e+00
+dihedral_coeff 10 multi/harmonic    8.00000000e-02    2.40000000e-01    0.00000000e+00   -3.20000000e-01    0.00000000e+00
+dihedral_coeff 11 multi/harmonic    8.00000000e-01    8.00000000e-01    0.00000000e+00    0.00000000e+00    0.00000000e+00
+dihedral_coeff 12 multi/harmonic    0.00000000e+00    0.00000000e+00    0.00000000e+00    0.00000000e+00    0.00000000e+00
+dihedral_coeff 13 multi/harmonic    0.00000000e+00    0.00000000e+00    0.00000000e+00    0.00000000e+00    0.00000000e+00
+dihedral_coeff 14 multi/harmonic    0.00000000e+00    0.00000000e+00    4.00000000e+00    0.00000000e+00    0.00000000e+00
+dihedral_coeff 15 multi/harmonic    4.00000000e-01   -1.20000000e+00    0.00000000e+00    1.60000000e+00    0.00000000e+00
+dihedral_coeff 16 multi/harmonic    2.00000000e+00    2.00000000e+00    0.00000000e+00    0.00000000e+00    0.00000000e+00
+dihedral_coeff 17 multi/harmonic    0.00000000e+00    0.00000000e+00    5.40000000e-01    0.00000000e+00    0.00000000e+00
+dihedral_coeff 18 multi/harmonic    4.20000000e-01   -1.26000000e+00    0.00000000e+00    1.68000000e+00    0.00000000e+00
+dihedral_coeff 19 multi/harmonic    2.20000000e+00    0.00000000e+00   -2.20000000e+00    0.00000000e+00    0.00000000e+00
+dihedral_coeff 20 multi/harmonic    2.00000000e+00    2.00000000e+00    0.00000000e+00    0.00000000e+00    0.00000000e+00
+dihedral_coeff 21 multi/harmonic    5.00000000e+00    0.00000000e+00   -5.00000000e+00    0.00000000e+00    0.00000000e+00
+dihedral_coeff 22 multi/harmonic    5.00000000e+00    0.00000000e+00   -5.00000000e+00    0.00000000e+00    0.00000000e+00
+dihedral_coeff 23 multi/harmonic    1.55554493e-01   -4.66663480e-01    0.00000000e+00    6.22217973e-01    0.00000000e+00
+dihedral_coeff 24 multi/harmonic    1.55554493e-01   -4.66663480e-01    0.00000000e+00    6.22217973e-01    0.00000000e+00
+dihedral_coeff 25 multi/harmonic    1.55554493e-01   -4.66663480e-01    0.00000000e+00    6.22217973e-01    0.00000000e+00
+dihedral_coeff 26 multi/harmonic    0.00000000e+00    0.00000000e+00    0.00000000e+00    0.00000000e+00    0.00000000e+00
+dihedral_coeff 27 multi/harmonic    4.50000000e-01   -4.50000000e-01    0.00000000e+00    0.00000000e+00    0.00000000e+00
+dihedral_coeff 28 multi/harmonic    3.16000000e+00    0.00000000e+00   -3.16000000e+00    0.00000000e+00    0.00000000e+00
+dihedral_coeff 29 multi/harmonic    5.50000000e-01    1.65000000e+00    0.00000000e+00   -2.20000000e+00    0.00000000e+00
+dihedral_coeff 30 multi/harmonic    0.00000000e+00    0.00000000e+00    0.00000000e+00    0.00000000e+00    0.00000000e+00
+dihedral_coeff 31 multi/harmonic    0.00000000e+00    0.00000000e+00    0.00000000e+00    0.00000000e+00    0.00000000e+00
+dihedral_coeff 32 multi/harmonic    0.00000000e+00    0.00000000e+00    0.00000000e+00    0.00000000e+00    0.00000000e+00
+dihedral_coeff 33 multi/harmonic    5.00000000e+00    0.00000000e+00   -5.00000000e+00    0.00000000e+00    0.00000000e+00
+dihedral_coeff 34 multi/harmonic    5.00000000e+00    0.00000000e+00   -5.00000000e+00    0.00000000e+00    0.00000000e+00
+dihedral_coeff 35 multi/harmonic    2.10000000e+01    0.00000000e+00   -2.10000000e+01    0.00000000e+00    0.00000000e+00
+dihedral_coeff 36 multi/harmonic    1.55554493e-01   -4.66663480e-01    0.00000000e+00    6.22217973e-01    0.00000000e+00
+dihedral_coeff 37 multi/harmonic    1.55554493e-01   -4.66663480e-01    0.00000000e+00    6.22217973e-01    0.00000000e+00
+dihedral_coeff 38 multi/harmonic    1.55554493e-01   -4.66663480e-01    0.00000000e+00    6.22217973e-01    0.00000000e+00
+dihedral_coeff 39 multi/harmonic    8.00000000e-01    8.00000000e-01    0.00000000e+00    0.00000000e+00    0.00000000e+00
+dihedral_coeff 40 multi/harmonic    8.00000000e-02    2.40000000e-01    0.00000000e+00   -3.20000000e-01    0.00000000e+00
+dihedral_coeff 41 multi/harmonic    0.00000000e+00    0.00000000e+00    0.00000000e+00    0.00000000e+00    0.00000000e+00
+dihedral_coeff 42 multi/harmonic    0.00000000e+00    0.00000000e+00    0.00000000e+00    0.00000000e+00    0.00000000e+00
+dihedral_coeff 43 multi/harmonic    0.00000000e+00    0.00000000e+00    4.00000000e-01    0.00000000e+00    0.00000000e+00
+dihedral_coeff 44 multi/harmonic    4.00000000e-01   -1.20000000e+00    0.00000000e+00    1.60000000e+00    0.00000000e+00
+dihedral_coeff 45 multi/harmonic    2.00000000e-01    2.00000000e-01    0.00000000e+00    0.00000000e+00    0.00000000e+00
+dihedral_coeff 46 multi/harmonic    1.55554493e-01   -4.66663480e-01    0.00000000e+00    6.22217973e-01    0.00000000e+00
+dihedral_coeff 47 multi/harmonic    1.55554493e-01   -4.66663480e-01    0.00000000e+00    6.22217973e-01    0.00000000e+00
+dihedral_coeff 48 multi/harmonic    1.55554493e-01   -4.66663480e-01    0.00000000e+00    6.22217973e-01    0.00000000e+00
+dihedral_coeff 49 multi/harmonic    0.00000000e+00    0.00000000e+00    0.00000000e+00    0.00000000e+00    0.00000000e+00
+dihedral_coeff 50 multi/harmonic    0.00000000e+00    0.00000000e+00    0.00000000e+00    0.00000000e+00    0.00000000e+00
+dihedral_coeff 51 multi/harmonic    0.00000000e+00    0.00000000e+00    0.00000000e+00    0.00000000e+00    0.00000000e+00
+dihedral_coeff 52 multi/harmonic    2.20000000e+00    0.00000000e+00   -2.20000000e+00    0.00000000e+00    0.00000000e+00
+dihedral_coeff 53 multi/harmonic    2.00000000e+00    2.00000000e+00    0.00000000e+00    0.00000000e+00    0.00000000e+00
+dihedral_coeff 54 multi/harmonic    5.00000000e+00    0.00000000e+00   -5.00000000e+00    0.00000000e+00    0.00000000e+00
+dihedral_coeff 55 multi/harmonic    5.00000000e+00    0.00000000e+00   -5.00000000e+00    0.00000000e+00    0.00000000e+00
+dihedral_coeff 56 multi/harmonic    0.00000000e+00    0.00000000e+00    0.00000000e+00    0.00000000e+00    0.00000000e+00
+dihedral_coeff 57 multi/harmonic    0.00000000e+00    0.00000000e+00    0.00000000e+00    0.00000000e+00    0.00000000e+00
+dihedral_coeff 58 multi/harmonic    0.00000000e+00    0.00000000e+00    0.00000000e+00    0.00000000e+00    0.00000000e+00
+#pair_style lj/cut/coul/long 9.0 9.0
+#kspace_style pppm 1e-8
+pair_style lj/cut/coul/cut 25.0 25.0
+pair_coeff 1 1   0.0157000   2.6495300
+pair_coeff 2 2   0.1094001   3.3996700
+pair_coeff 3 3   0.0860000   3.3996700
+pair_coeff 4 4   0.2100000   2.9599200
+pair_coeff 5 5   0.1700000   3.2500000
+pair_coeff 6 6   0.0157000   1.0690800
+pair_coeff 7 7   0.0157000   2.4713500
+pair_modify mix arithmetic
+#SPECIAL BONDS
+special_bonds lj 0.0 0.0 0.5 coul 0.0 0.0 0.8333
+
+#-------#
+# SETUP #
+#-------#
+
+#MD variables
+variable        dt           equal 1.0      #Time step for the MD run
+variable        T            equal 300      #Temperature
+variable        lange_tau    equal 1000.0   #Time constant of the thermostat
+variable        dump_freq    equal 1000     #How
+variable        thermo_freq  equal 1000     #    many
+variable        restart_freq equal 100000   #         samples of various things
+variable        Nsteps       equal 3000000 #Total number of MD steps
+
+timestep        ${dt}  #Actually sets the timestep for the simulation to dt, as defined above
+
+#POLYMER variables
+variable        epsilon      equal 0.00001  #Epsilon, needed for finite difference in path dyn
+variable        path_dt      equal 1.0      #Time step at the Brownian level (entering the definition of the fictitious spring constant)
+variable        path_damp    equal 0.25     #Damping at the Brownian level         "   "
+
+#-------#
+#-------#
+
+#---------------#
+# thermo output #
+#---------------#     1    2    3    4   5  6    7     8
+thermo_style custom time temp etotal ke pe emol ebond eangle
+thermo_modify   line one format float %20.16g
+thermo_modify   flush yes norm no lost warn
+thermo ${thermo_freq}
+#---------------#
+#---------------#
+
+#---------------#
+#   dump traj   #
+#---------------#
+dump 2 all custom ${dump_freq} traj.${ibead}.lammpstrj x y z mol type id
+#---------------#
+#---------------#
+
+#-------#
+#  FIX  #
+#-------#
+fix 1 all path_dynamics ${path_dt} ${path_damp} ${epsilon} langevin ${T} ${lange_tau} 9827${ibead}
+fix_modify 1 energy yes
+variable plmdfile index plumed_mop.dat
+fix 2 all plumed plumedfile ${plmdfile} outfile log.plumed
+#-------#
+#-------#
+
+#--------------------------#
+#  compute polymer energy  #
+#--------------------------#
+variable a equal step
+variable b equal f_1[1] #spring energy
+variable c equal f_1[2] #kinetic energy
+fix printEspring all print ${thermo_freq} "$a $b $c" file polymer.${ibead}.nrg screen no
+#------------------------------#
+#------------------------------#
+
+#-------#
+#  RUN  #
+#-------#
+restart ${restart_freq} restart1.${ibead} restart2.${ibead}
+run ${Nsteps}
+write_data last_conf.${ibead}.data nocoeff

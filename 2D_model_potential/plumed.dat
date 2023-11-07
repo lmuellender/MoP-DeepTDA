@@ -1,0 +1,18 @@
+# PLUMED input file for simulations in configuration space on 2D model potential
+
+UNITS NATURAL
+
+p: 	POSITION ATOM=1
+
+ene: CUSTOM ARG=p.x,p.y PERIODIC=NO 
+
+FUNC=-16.0*exp(-10.0*(x-1.0)^2+5.0*(x-1.0)*(y-1.2)-5.0*(y-1.2)^2)-11.0*exp(-1.0*(x-0.0)^2+0.0*(x-0.0)*(y-0.5)-10.0*(y-0.5)^2)-17.0*exp(-6.5*(x+0.5)^2+11.0*(x+0.5)*(y-1.5)-6.5*(y-1.5)^2)+2.0*exp(0.4*(x-0.0)^2+0.0*(x-0.0)*(y-1.0)+1.1*(y-1.0)^2)
+
+pot: BIASVALUE ARG=ene
+
+# change PyTorch model file and OPES parameters accordingly
+deep: PYTORCH_MODEL FILE=model_2D_4stateTDA.ptc ARG=p.x,p.y
+
+opes:	OPES_METAD ARG=deep.node-0 TEMP=0.1 PACE=300 BARRIER=15 SIGMA=0.01
+
+PRINT FILE=colvar_2D_4stateTDA ARG=* STRIDE=100

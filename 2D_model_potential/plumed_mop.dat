@@ -1,0 +1,20 @@
+# PLUMED input file for MoP simulations in trajectory space on 2D model potential
+
+UNITS NATURAL
+
+POSITION ATOM=1 LABEL=p
+
+PYTORCH_MODEL FILE=model_2D_4stateTDA.ptc ARG=p.x,p.y LABEL=deep	
+
+MATHEVAL ...
+	ARG=deep.node-0
+	FUNC=x287-x0
+	PERIODIC=NO
+	LABEL=CV
+	MULTIREP
+... MATHEVAL
+
+OPES_METAD ARG=CV TEMP=0.1 PACE=500 BARRIER=15 SERIAL LABEL=opes
+
+PRINT FILE=colvar_mop_2D_4stateTDA ARG=* STRIDE=500
+

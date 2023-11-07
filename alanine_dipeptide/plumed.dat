@@ -1,0 +1,9 @@
+# PLUMED input file for simulations in configuration space with alanine dipeptide
+
+INCLUDE plumed_descriptors_ala.dat
+
+deep: PYTORCH_MODEL FILE=model_ala_3stateTDA.ptc ARG=(d[1-9]|d[1-4][0-9])
+
+opes: OPES_METAD ARG=deep.node-0 TEMP=300 BARRIER=50 PACE=100
+
+PRINT STRIDE=500 ARG=* FMT=%20.15E FILE=colvar_ala_tda3st_st_5

@@ -1,0 +1,29 @@
+# PLUMED file for MoP simulations in alanine dipeptide
+
+INCLUDE plumed_descriptors_ala.dat
+
+PYTORCH_MODEL FILE=model_ala_3stateTDA.ptc ARG=(d[1-9]|d[1-4][0-9]) LABEL=deep
+
+# get potential energy from LAMMPS: equal to OM-action
+ENERGY label=ene
+
+MATHEVAL ...
+   ARG=deep.node-0
+   VAR=cv
+   FUNC=(cv511-cv0)
+   PERIODIC=NO
+   LABEL=CV
+   MULTIREP
+... MATHEVAL
+
+OPES_METAD ...
+        LABEL=opes
+        ARG=CV
+        TEMP=300
+        PACE=1000
+        BIASFACTOR=15
+        BARRIER=80
+        SERIAL
+... OPES_METAD
+
+PRINT STRIDE=1000 ARG=* FMT=%20.15E FILE=Colvar
